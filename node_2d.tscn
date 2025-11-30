@@ -1,0 +1,319 @@
+[gd_scene load_steps=15 format=3 uid="uid://b16l6qdq00pth"]
+
+[ext_resource type="Script" uid="uid://n8ngttljdf7a" path="res://retrobyte/background.gd" id="1_ir8iy"]
+[ext_resource type="Texture2D" uid="uid://ct1urvh4cgyyu" path="res://SetaVaZIA.png" id="1_wtcfe"]
+[ext_resource type="FontFile" uid="uid://1mlvawu6pd5w" path="res://Pixelify_Sans,Press_Start_2P/Pixelify_Sans/static/PixelifySans-Bold.ttf" id="2_0e48y"]
+[ext_resource type="Texture2D" uid="uid://btquu5xjjyorx" path="res://Pensonagem/garota_idle.png" id="3_epypp"]
+[ext_resource type="Texture2D" uid="uid://m8g376lgk8mp" path="res://coracoes0.5.png" id="5_ir8iy"]
+[ext_resource type="Texture2D" uid="uid://tr0i4po84jye" path="res://coracoes1.png" id="6_hqns4"]
+[ext_resource type="Texture2D" uid="uid://cbr57hx5onp3h" path="res://coracoes1.5.png" id="7_x0ka3"]
+[ext_resource type="Texture2D" uid="uid://b4cguvxmljlhp" path="res://coracoes2.png" id="8_0h7mo"]
+[ext_resource type="Texture2D" uid="uid://b6lrdorei41ca" path="res://coracoes2.5.png" id="9_nr8wp"]
+[ext_resource type="Texture2D" uid="uid://brrws6bw83plx" path="res://coracoes3.png" id="10_d2bti"]
+
+[sub_resource type="GDScript" id="GDScript_wtcfe"]
+script/source = "extends Node2D
+
+var seta = preload(\"res://seta.tscn\")
+var local = [Vector2(400,-100), Vector2(480,-100), Vector2(620,-100), Vector2(700,-100)]
+var lo_final = [Vector2(200,528), Vector2(400,528), Vector2(600,528), Vector2(800,528)]
+var score = 0
+var vida = 6
+var perfect = 1000
+var animando = false
+var lim_distancia = 200
+@onready var Personagem = $personagem
+enum {Idle, Feliz, dano}
+var estado_atual = \"Idle\"
+
+func _ready() -> void:
+	Personagem.add_to_group(\"Personagem\")
+	randomize()
+	
+	$cora.frame = 5
+	var timerRun = Timer.new()
+	timerRun.wait_time = 120
+	timerRun.one_shot = false
+	timerRun.timeout.connect(func(): 
+		$Gerar.wait_time -= 0.01
+		if $Gerar.wait_time <= 0.11:
+			timerRun.stop())
+	add_child(timerRun)
+	timerRun.start()
+	
+	
+func gerar_cordenada():
+	var random = randi() % local.size()
+	var spawn = seta.instantiate()
+	spawn.position = local[random]
+	if random==0:
+		spawn.add_to_group(\"Esquerda\")
+	elif random == 1:
+		spawn.add_to_group(\"Baixo\")
+	elif random == 2:
+		spawn.add_to_group(\"Cima\")
+	elif random == 3:
+		spawn.add_to_group(\"Direita\")
+	
+	print($Gerar.wait_time)
+	add_child(spawn)
+	
+func apertar_tecla(number):
+	if number == 0:
+		var Esquerda = get_tree().get_nodes_in_group(\"Esquerda\")
+		if Esquerda.size() > 0:
+			var mySeta = Esquerda[0]
+			var distancia = mySeta.global_position.distance_to(lo_final[1])
+			if distancia <= lim_distancia:
+				troca_estado(\"Feliz\")
+				var tween = get_tree().create_tween()
+				tween.tween_property(mySeta, \"scale\", Vector2(2, 2), 0.07)
+				tween.tween_property(mySeta, \"modulate:a\", 0.0, 0.07)
+				tween.tween_callback(func():
+					if is_instance_valid(mySeta):
+						mySeta.queue_free()
+						)
+				if distancia <= 40:
+					score += perfect
+					print(\"Perfect\")
+				elif distancia <= 100:
+					score += perfect / 5
+					print(\"Médio\")
+				elif distancia <= 120 and distancia >= 100:
+					score += perfect / 3
+					print(\"Ruim\")
+				else:
+					score -= 1000
+					print(\"Miss\")
+
+	if number == 1:
+		var Baixo = get_tree().get_nodes_in_group(\"Baixo\")
+		if Baixo.size() > 0:
+			var mySeta = Baixo[0]
+			var distancia = mySeta.global_position.distance_to(lo_final[1])
+			if distancia <= lim_distancia:
+				troca_estado(\"Feliz\")
+				var tween = mySeta.create_tween()
+				tween.tween_property(mySeta, \"scale\", Vector2(2, 2), 0.07) 
+				tween.tween_property(mySeta, \"modulate:a\", 0.0, 0.07)      
+				tween.tween_callback(mySeta.queue_free)
+				if distancia <= 40:
+					score += perfect
+					print(\"Perfect\")
+				elif distancia <= 100 and distancia >= 40:
+					score += perfect /5
+					print(\"MEDIO\")
+				elif distancia <= 120 and distancia >= 100:
+					score += perfect / 3
+					print(\"Ruim\")
+				else:
+					score -= 1000
+					print(\"Miss\")
+	if number == 2:
+		var Cima = get_tree().get_nodes_in_group(\"Cima\")
+		if Cima.size() > 0:
+			var mySeta = Cima[0]
+			var distancia = mySeta.global_position.distance_to(lo_final[2])
+			if distancia <= lim_distancia:
+				troca_estado(\"Feliz\")
+				var tween = mySeta.create_tween()
+				tween.tween_property(mySeta, \"scale\", Vector2(2, 2), 0.07) 
+				tween.tween_property(mySeta, \"modulate:a\", 0.0, 0.07)      
+				tween.tween_callback(mySeta.queue_free)
+				if distancia <= 40:
+					score += perfect
+					print(\"Perfect\")
+				elif distancia <= 100 and distancia >= 40:
+					score += perfect /5
+					print(\"MEDIO\")
+				elif distancia <= 120 and distancia >= 100:
+					score += perfect / 3
+					print(\"Ruim\")
+				else:
+					score -= 1000
+					print(\"Miss\")
+			
+
+
+	if number == 3:
+		var Direita = get_tree().get_nodes_in_group(\"Direita\")
+		if Direita.size() > 0:
+			var mySeta = Direita[0]
+			var distancia = mySeta.global_position.distance_to(lo_final[3])
+			if distancia <= lim_distancia:
+				troca_estado(\"Feliz\")
+				var tween = mySeta.create_tween()
+				tween.tween_property(mySeta, \"scale\", Vector2(2, 2), 0.07) 
+				tween.tween_property(mySeta, \"modulate:a\", 0.0, 0.07)      
+				tween.tween_callback(mySeta.queue_free)
+				if distancia <= 40:
+					score += perfect
+					print(\"Perfect\")
+				elif distancia <= 100 and distancia >= 40:
+					score += perfect /5
+					print(\"MEDIO\")
+				elif distancia <= 120 and distancia >= 100:
+					score += perfect / 3
+					print(\"Ruim\")
+				else:
+					score -= 1000
+					print(\"Miss\")
+				
+func _physics_process(delta: float) -> void:
+	
+	match estado_atual:
+		\"Idle\":
+			Personagem.texture = preload(\"res://Pensonagem/garota_idle.png\")
+		\"Feliz\":
+			Personagem.texture = preload(\"res://Pensonagem/garota_happy.png\")
+		\"dano\":
+			Personagem.texture = preload(\"res://Pensonagem/garota_Braba.png\")
+	
+func troca_estado(novo_estado):
+	if novo_estado != estado_atual:
+		estado_atual = novo_estado
+func fazer_tween():
+		troca_estado(\"dano\")
+		var tween = create_tween()
+		var intensidade = 10.0 
+		var duracao = 0.05
+		tween.tween_property(Personagem, \"position:x\", 162 - intensidade, duracao)
+		tween.tween_property(Personagem, \"position:x\", 162 - intensidade, duracao)
+		tween.tween_property(Personagem, \"position:x\", 162 + intensidade / 2, duracao)
+		tween.tween_property(Personagem, \"position:x\", 162, duracao)
+		
+		var tweenLife = create_tween()
+		tweenLife.tween_property($cora, \"scale\", Vector2(1.5, 1.5), 0.07)
+		tweenLife.tween_property($cora, \"scale\", Vector2(1, 1), 0.07)
+		vida -=1 
+		if vida == 6:
+			$cora.frame = 5
+		if vida == 5:
+			$cora.frame = 4
+		if vida == 4:
+			$cora.frame = 3
+		if vida == 3:
+			$cora.frame = 2
+		if vida == 2:
+			$cora.frame = 1
+		if vida == 1:
+			$cora.frame = 0
+		if vida == 0:
+			pass
+		
+
+
+
+func _process(delta: float) -> void:
+	
+	$score.text = str(score)
+	
+	if Input.is_action_just_pressed(\"Esquerda\"):
+		apertar_tecla(0)
+	if Input.is_action_just_pressed(\"Direita\"):
+		apertar_tecla(3)
+	if Input.is_action_just_pressed(\"Baixo\"):
+		apertar_tecla(1)
+	if Input.is_action_just_pressed(\"Cima\"):
+		apertar_tecla(2)
+		
+	
+"
+
+[sub_resource type="GDScript" id="GDScript_0e48y"]
+script/source = "extends Area2D
+"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_epypp"]
+size = Vector2(1174.5, 114)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ta5nu"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_ir8iy")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_hqns4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_x0ka3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_0h7mo")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_nr8wp")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_d2bti")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="Node2D" type="Node2D"]
+script = SubResource("GDScript_wtcfe")
+metadata/_edit_horizontal_guides_ = [-41.0, 528.0, 647.0]
+
+[node name="background" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_ir8iy")
+
+[node name="Area2D" type="Area2D" parent="."]
+script = SubResource("GDScript_0e48y")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(572.75, 588)
+shape = SubResource("RectangleShape2D_epypp")
+
+[node name="SetaVaZia" type="Sprite2D" parent="."]
+position = Vector2(700, 528)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_wtcfe")
+
+[node name="SetaVaZia2" type="Sprite2D" parent="."]
+position = Vector2(620, 528)
+rotation = -1.5707964
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_wtcfe")
+
+[node name="SetaVaZia3" type="Sprite2D" parent="."]
+position = Vector2(480, 528)
+rotation = 1.5707964
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_wtcfe")
+
+[node name="SetaVaZia4" type="Sprite2D" parent="."]
+position = Vector2(400, 528)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_wtcfe")
+flip_h = true
+
+[node name="score" type="Label" parent="."]
+offset_left = 76.0
+offset_top = 114.0
+offset_right = 379.0
+offset_bottom = 215.0
+theme_override_colors/font_color = Color(0.9118487, 0.9018293, 0.8932467, 1)
+theme_override_fonts/font = ExtResource("2_0e48y")
+theme_override_font_sizes/font_size = 25
+
+[node name="personagem" type="Sprite2D" parent="."]
+position = Vector2(157, 546)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("3_epypp")
+
+[node name="cora" type="AnimatedSprite2D" parent="."]
+position = Vector2(960, 114)
+sprite_frames = SubResource("SpriteFrames_ta5nu")
+
+[node name="Gerar" type="Timer" parent="."]
+wait_time = 0.4
+autostart = true
+
+[connection signal="timeout" from="Gerar" to="." method="gerar_cordenada"]

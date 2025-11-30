@@ -1,0 +1,199 @@
+[gd_scene load_steps=8 format=3 uid="uid://cndk55ekfveya"]
+
+[ext_resource type="Script" uid="uid://bxytmpdt5yif" path="res://escolha_lvl.gd" id="1_p8e4t"]
+[ext_resource type="Script" uid="uid://n8ngttljdf7a" path="res://retrobyte/background.gd" id="1_y44s4"]
+[ext_resource type="FontFile" uid="uid://hfq6y7priuka" path="res://retrobyte/RetroByte.ttf" id="2_ho5xa"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_y44s4"]
+bg_color = Color(0.9999996, 0.6196895, 0.8166222, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.9, 0.4, 0.7, 1)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ho5xa"]
+bg_color = Color(0.9, 0.6, 0.75, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.7, 0.2, 0.5, 1)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_p8e4t"]
+bg_color = Color(1, 0.8, 0.9, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.8, 0.3, 0.6, 1)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_l4lno"]
+bg_color = Color(1, 0.8, 0.9, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.8, 0.3, 0.6, 1)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+
+[node name="Escolha_Lvl" type="Node2D"]
+script = ExtResource("1_p8e4t")
+
+[node name="background" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -1.0
+offset_top = -3.0
+offset_right = 1279.0
+offset_bottom = 717.0
+script = ExtResource("1_y44s4")
+
+[node name="PlayButton" type="Button" parent="."]
+custom_minimum_size = Vector2(0, 60)
+offset_left = 121.0
+offset_top = 102.0
+offset_right = 421.0
+offset_bottom = 541.0
+theme_override_styles/normal = SubResource("StyleBoxFlat_y44s4")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_ho5xa")
+theme_override_styles/hover = SubResource("StyleBoxFlat_p8e4t")
+theme_override_styles/focus = SubResource("StyleBoxFlat_l4lno")
+
+[node name="Label" type="Label" parent="PlayButton"]
+layout_mode = 0
+offset_left = 110.0
+offset_top = 41.0
+offset_right = 185.0
+offset_bottom = 82.0
+theme_override_fonts/font = ExtResource("2_ho5xa")
+theme_override_font_sizes/font_size = 40
+text = "Easy"
+
+[node name="Label2" type="Label" parent="PlayButton"]
+layout_mode = 0
+offset_left = 21.0
+offset_top = 117.0
+offset_right = 337.0
+offset_bottom = 270.0
+theme_override_fonts/font = ExtResource("2_ho5xa")
+theme_override_font_sizes/font_size = 35
+text = "Characteristics: 
+Slower 
+No arrow changes 
+Lower point gain."
+
+[node name="Label3" type="Label" parent="PlayButton"]
+layout_mode = 0
+offset_left = 110.0
+offset_top = 331.0
+offset_right = 188.0
+offset_bottom = 367.0
+theme_override_fonts/font = ExtResource("2_ho5xa")
+theme_override_font_sizes/font_size = 40
+text = "Start"
+
+[node name="PlayButton2" type="Button" parent="."]
+custom_minimum_size = Vector2(0, 60)
+offset_left = 440.0
+offset_top = 102.0
+offset_right = 740.0
+offset_bottom = 541.0
+theme_override_styles/normal = SubResource("StyleBoxFlat_y44s4")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_ho5xa")
+theme_override_styles/hover = SubResource("StyleBoxFlat_p8e4t")
+theme_override_styles/focus = SubResource("StyleBoxFlat_l4lno")
+
+[node name="Label" type="Label" parent="PlayButton2"]
+layout_mode = 0
+offset_left = 85.0
+offset_top = 41.0
+offset_right = 213.0
+offset_bottom = 82.0
+theme_override_fonts/font = ExtResource("2_ho5xa")
+theme_override_font_sizes/font_size = 40
+text = "Medium"
+
+[node name="Label2" type="Label" parent="PlayButton2"]
+layout_mode = 0
+offset_left = 21.0
+offset_top = 117.0
+offset_right = 337.0
+offset_bottom = 270.0
+theme_override_fonts/font = ExtResource("2_ho5xa")
+theme_override_font_sizes/font_size = 35
+text = "Characteristics: 
+Normal Speed 
+No arrow changes 
+Normal point gain."
+
+[node name="Label3" type="Label" parent="PlayButton2"]
+layout_mode = 0
+offset_left = 110.0
+offset_top = 331.0
+offset_right = 188.0
+offset_bottom = 367.0
+theme_override_fonts/font = ExtResource("2_ho5xa")
+theme_override_font_sizes/font_size = 40
+text = "Start"
+
+[node name="PlayButton3" type="Button" parent="."]
+custom_minimum_size = Vector2(0, 60)
+offset_left = 760.0
+offset_top = 102.0
+offset_right = 1060.0
+offset_bottom = 541.0
+theme_override_styles/normal = SubResource("StyleBoxFlat_y44s4")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_ho5xa")
+theme_override_styles/hover = SubResource("StyleBoxFlat_p8e4t")
+theme_override_styles/focus = SubResource("StyleBoxFlat_l4lno")
+
+[node name="Label" type="Label" parent="PlayButton3"]
+layout_mode = 0
+offset_left = 100.0
+offset_top = 41.0
+offset_right = 180.0
+offset_bottom = 82.0
+theme_override_fonts/font = ExtResource("2_ho5xa")
+theme_override_font_sizes/font_size = 40
+text = "Hard"
+
+[node name="Label2" type="Label" parent="PlayButton3"]
+layout_mode = 0
+offset_left = 21.0
+offset_top = 117.0
+offset_right = 337.0
+offset_bottom = 270.0
+theme_override_fonts/font = ExtResource("2_ho5xa")
+theme_override_font_sizes/font_size = 35
+text = "Characteristics: 
+Quickly
+Arrow changes 
+Hight point gain."
+
+[node name="Label3" type="Label" parent="PlayButton3"]
+layout_mode = 0
+offset_left = 110.0
+offset_top = 331.0
+offset_right = 188.0
+offset_bottom = 367.0
+theme_override_fonts/font = ExtResource("2_ho5xa")
+theme_override_font_sizes/font_size = 40
+text = "Start"
+
+[connection signal="pressed" from="PlayButton2" to="." method="_on_play_button_2_pressed"]
