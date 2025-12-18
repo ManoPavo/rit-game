@@ -18,6 +18,17 @@ config/icon="uid://ulskvrwdpagn"
 [autoload]
 
 Transicao="*res://transicao.tscn"
+Music="*res://music.tscn"
+BpmDetecter="*res://bpm_detecter.tscn"
+
+[editor]
+
+movie_writer/disable_vsync=true
+movie_writer/fps=40
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/gd-audio-analyzer/plugin.cfg")
 
 [global_group]
 

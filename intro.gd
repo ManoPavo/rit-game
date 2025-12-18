@@ -6,7 +6,7 @@ extends Node2D
 
 func _ready():
 	
-	
+	Music.play_music()
 	logo.position = Vector2(-1000, 0)
 	logo.scale = Vector2(0.5, 0.5)
 	title.scale = Vector2(1.0, 1.0)

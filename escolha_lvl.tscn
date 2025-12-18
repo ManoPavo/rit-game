@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://cndk55ekfveya"]
 
 [ext_resource type="Script" uid="uid://bxytmpdt5yif" path="res://escolha_lvl.gd" id="1_p8e4t"]
-[ext_resource type="Script" uid="uid://n8ngttljdf7a" path="res://retrobyte/background.gd" id="1_y44s4"]
+[ext_resource type="Script" uid="uid://n8ngttljdf7a" path="res://background.gd" id="1_y44s4"]
 [ext_resource type="FontFile" uid="uid://hfq6y7priuka" path="res://retrobyte/RetroByte.ttf" id="2_ho5xa"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_y44s4"]

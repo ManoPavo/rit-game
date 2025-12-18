@@ -1,6 +1,6 @@
 [gd_scene load_steps=15 format=3 uid="uid://b16l6qdq00pth"]
 
-[ext_resource type="Script" uid="uid://n8ngttljdf7a" path="res://retrobyte/background.gd" id="1_ir8iy"]
+[ext_resource type="Script" uid="uid://n8ngttljdf7a" path="res://background.gd" id="1_ir8iy"]
 [ext_resource type="Texture2D" uid="uid://ct1urvh4cgyyu" path="res://SetaVaZIA.png" id="1_wtcfe"]
 [ext_resource type="FontFile" uid="uid://1mlvawu6pd5w" path="res://Pixelify_Sans,Press_Start_2P/Pixelify_Sans/static/PixelifySans-Bold.ttf" id="2_0e48y"]
 [ext_resource type="Texture2D" uid="uid://btquu5xjjyorx" path="res://Pensonagem/garota_idle.png" id="3_epypp"]
@@ -18,7 +18,7 @@ var seta = preload(\"res://seta.tscn\")
 var local = [Vector2(400,-100), Vector2(480,-100), Vector2(620,-100), Vector2(700,-100)]
 var lo_final = [Vector2(200,528), Vector2(400,528), Vector2(600,528), Vector2(800,528)]
 var score = 0
-var vida = 6
+var vida = 12
 var perfect = 1000
 var animando = false
 var lim_distancia = 200
@@ -26,13 +26,23 @@ var lim_distancia = 200
 enum {Idle, Feliz, dano}
 var estado_atual = \"Idle\"
 
+
 func _ready() -> void:
+	var target_node = find_child(\"audio_stream_player\", true, false)
+	if target_node:
+		print(\"BPM:\", target_node.bpm)
+	else:
+		print(\"Nó não encontrado!\")
+	
 	Personagem.add_to_group(\"Personagem\")
 	randomize()
 	
+	
+	print($Gerar.wait_time)
+	
 	$cora.frame = 5
 	var timerRun = Timer.new()
-	timerRun.wait_time = 120
+	timerRun.wait_time = 100
 	timerRun.one_shot = false
 	timerRun.timeout.connect(func(): 
 		$Gerar.wait_time -= 0.01
@@ -206,6 +216,10 @@ func fazer_tween():
 
 func _process(delta: float) -> void:
 	
+	if vida <= 0:
+		
+		get_tree().change_scene_to_file(\"res://death.tscn\") 
+	
 	$score.text = str(score)
 	
 	if Input.is_action_just_pressed(\"Esquerda\"):
@@ -313,7 +327,7 @@ position = Vector2(960, 114)
 sprite_frames = SubResource("SpriteFrames_ta5nu")
 
 [node name="Gerar" type="Timer" parent="."]
-wait_time = 0.4
+wait_time = 0.2
 autostart = true
 
 [connection signal="timeout" from="Gerar" to="." method="gerar_cordenada"]

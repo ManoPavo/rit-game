@@ -22,4 +22,5 @@ func _process(delta):
 
 
 func _on_play_button_2_pressed():
+	Music.stop_music()
 	get_tree().change_scene_to_file("res://node_2d.tscn")# Replace with function body.
