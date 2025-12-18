@@ -1,0 +1,83 @@
+[gd_scene load_steps=10 format=3 uid="uid://csmpi8mceull7"]
+
+[ext_resource type="Script" uid="uid://dalwgf8kfr4fd" path="res://addons/gd-audio-analyzer/scripts/audio_analyzer.gd" id="1_8h0pe"]
+[ext_resource type="Script" uid="uid://n8ngttljdf7a" path="res://background.gd" id="1_u4sy1"]
+[ext_resource type="Script" uid="uid://6bccceyf1y2h" path="res://bpm_detecter.gd" id="1_wpwkw"]
+[ext_resource type="Script" uid="uid://cie6t2ficirvu" path="res://audio_stream_player.gd" id="2_u4sy1"]
+[ext_resource type="FontFile" uid="uid://cmo40ncrapsvt" path="res://tiny5/Tiny5-SolidBold.otf" id="2_wpwkw"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_plsw0"]
+bg_color = Color(1, 0.59019107, 0.8723398, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.9779369, 0.97793704, 0.9779369, 1)
+border_blend = true
+corner_radius_top_left = 30
+corner_radius_top_right = 30
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_l5j4w"]
+bg_color = Color(1, 0.3518982, 0.894288, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(1, 1, 1, 1)
+border_blend = true
+corner_radius_top_left = 30
+corner_radius_top_right = 30
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8ojdv"]
+bg_color = Color(1, 0.48297918, 0.8539003, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(1, 1, 1, 1)
+border_blend = true
+corner_radius_top_left = 30
+corner_radius_top_right = 30
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_evcso"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[node name="bpm_Detecter" type="Node2D"]
+script = ExtResource("1_wpwkw")
+
+[node name="background" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -1.0
+offset_top = -3.0
+offset_right = 1279.0
+offset_bottom = 717.0
+script = ExtResource("1_u4sy1")
+
+[node name="FileDialog" type="FileDialog" parent="."]
+title = "Open a File"
+file_mode = 0
+access = 2
+
+[node name="Button" type="Button" parent="."]
+offset_left = 26.0
+offset_top = 15.0
+offset_right = 1136.0
+offset_bottom = 96.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/icon_focus_color = Color(1, 1, 1, 0)
+theme_override_fonts/font = ExtResource("2_wpwkw")
+theme_override_font_sizes/font_size = 28
+theme_override_styles/normal = SubResource("StyleBoxFlat_plsw0")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_l5j4w")
+theme_override_styles/hover = SubResource("StyleBoxFlat_8ojdv")
+theme_override_styles/focus = SubResource("StyleBoxFlat_evcso")
+text = "To Add Mp3"
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+script = ExtResource("2_u4sy1")
+
+[node name="AudioAnalyzer" type="Node" parent="."]
+script = ExtResource("1_8h0pe")
+fft_size_enum = 9
+metadata/_custom_type_script = "uid://dalwgf8kfr4fd"

@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://csmpi8mceull7"]
+
+[ext_resource type="Script" uid="uid://dalwgf8kfr4fd" path="res://addons/gd-audio-analyzer/scripts/audio_analyzer.gd" id="1_8h0pe"]
+[ext_resource type="Script" uid="uid://6bccceyf1y2h" path="res://bpm_detecter.gd" id="1_qvs05"]
+[ext_resource type="AudioStream" uid="uid://bhv3gjgo2iui4" path="res://Msuic/Pixel Dreams (1).mp3" id="2_ujt1t"]
+
+[node name="bpm_Detecter" type="Node2D"]
+script = ExtResource("1_qvs05")
+analysis_speed = null
+threshold = null
+min_interval = null
+bass_freq_low = null
+bass_freq_high = null
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_ujt1t")
+
+[node name="AudioAnalyzer" type="Node" parent="."]
+script = ExtResource("1_8h0pe")
+fft_size_enum = 9
+metadata/_custom_type_script = "uid://dalwgf8kfr4fd"

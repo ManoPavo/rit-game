@@ -1,0 +1,29 @@
+[gd_scene load_steps=4 format=3 uid="uid://c455ebcv3k1rn"]
+
+[ext_resource type="Script" uid="uid://bek3m74qrifol" path="res://intro.gd" id="1_ayt76"]
+[ext_resource type="Script" uid="uid://n8ngttljdf7a" path="res://background.gd" id="2_0a7ni"]
+[ext_resource type="Texture2D" uid="uid://dibjpoghg05w" path="res://logo.png" id="2_7a8ye"]
+
+[node name="Intro" type="Node2D"]
+position = Vector2(593, 329)
+script = ExtResource("1_ayt76")
+
+[node name="background" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -593.0
+offset_top = -329.0
+offset_right = -593.0
+offset_bottom = -329.0
+script = ExtResource("2_0a7ni")
+
+[node name="Logo" type="Sprite2D" parent="."]
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("2_7a8ye")
+
+[node name="Title" type="Label" parent="."]
+offset_left = -29.0
+offset_top = 88.0
+offset_right = 38.0
+offset_bottom = 111.0
+metadata/_edit_use_anchors_ = true
